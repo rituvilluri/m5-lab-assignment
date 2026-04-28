@@ -1,115 +1,82 @@
+// App.js
+// Main app component.
+// Loads product data, stores state, manages quantity handlers, and sets up routes.
+
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+import { loadProducts } from "./products";
+import NavigationBar from "./navbar";
+import Home from "./home";
+import Cart from "./cart";
+
 function App() {
-  // Store all products
+  // Store all products in state
   const [products, setProducts] = useState([]);
 
-  // Load the data file when the page starts
+  // Load data from public/data.txt when app starts
   useEffect(() => {
-    fetch("/data.txt")
-      .then((response) => response.text())
-      .then((text) => {
-        const items = parseProducts(text);
-        setProducts(items);
-      });
+    loadProducts()
+      .then((items) => setProducts(items))
+      .catch((error) => console.error("Failed to load products:", error));
   }, []);
 
-  // Convert the text file into product objects
-  function parseProducts(text) {
-    const lines = text.split("\n");
-    const items = [];
-
-    let currentProduct = null;
-
-    lines.forEach((line) => {
-      line = line.trim();
-
-      if (line.startsWith("#")) {
-        if (currentProduct) {
-          items.push(currentProduct);
-        }
-
-        currentProduct = {
-          id: items.length + 1,
-          image: "",
-          desc: "",
-          value: 0,
-          qty: 0,
-        };
+  // Increase quantity by 1 for the selected product
+  function handleAdd(id) {
+    const updatedProducts = products.map((product) => {
+      if (product.id === id) {
+        return { ...product, qty: product.qty + 1 };
       }
-
-      if (line.startsWith("image:")) {
-        let img = line.split(":")[1].trim().replace(/'/g, "");
-        img = img.replace("./", "/");
-        currentProduct.image = img;
-      }
-
-      if (line.startsWith("desc:")) {
-        currentProduct.desc = line.split(":")[1].trim().replace(/'/g, "");
-      }
-
-      if (line.startsWith("value:")) {
-        currentProduct.value = Number(line.split(":")[1].trim());
-      }
-    });
-
-    if (currentProduct) {
-      items.push(currentProduct);
-    }
-
-    return items;
-  }
-
-  // Handle typing in the quantity box
-  function changeQty(id, value) {
-    const number = Math.max(0, Math.floor(Number(value)));
-
-    const updatedProducts = products.map((p) => {
-      if (p.id === id) {
-        return { ...p, qty: number };
-      }
-      return p;
+      return product;
     });
 
     setProducts(updatedProducts);
   }
 
-  // Calculate total items in cart
-  const totalItems = products.reduce((sum, p) => sum + p.qty, 0);
+  // Decrease quantity by 1 for the selected product
+  // Do not allow quantity to go below 0
+  function handleSubtract(id) {
+    const updatedProducts = products.map((product) => {
+      if (product.id === id) {
+        return { ...product, qty: Math.max(product.qty - 1, 0) };
+      }
+      return product;
+    });
+
+    setProducts(updatedProducts);
+  }
+
+  // Total quantity of all products shown beside cart icon
+  const totalItems = products.reduce((sum, product) => sum + product.qty, 0);
 
   return (
-    <div className="page">
-      <div className="topbar">
-        <div className="title">Shop to React</div>
-        <div className="cart">🛒 {totalItems} items</div>
-      </div>
+    <Router>
+      <div className="page">
+        {/* Navbar appears on every page */}
+        <NavigationBar totalItems={totalItems} />
 
-      {products.map((product) => (
-        <div key={product.id} className="product-row">
-          <h2>{product.desc}</h2>
-
-          <div className="product-body">
-            <img
-              src={product.image}
-              alt={product.desc}
-              className="product-img"
+        <div className="container">
+          <Routes>
+            {/* Home route */}
+            <Route
+              path="/"
+              element={
+                <Home
+                  products={products}
+                  handleAdd={handleAdd}
+                  handleSubtract={handleSubtract}
+                />
+              }
             />
 
-            <div className="qty-area">
-              <input
-                type="number"
-                min="0"
-                value={product.qty}
-                onChange={(e) => changeQty(product.id, e.target.value)}
-              />
-
-              <span>quantity</span>
-            </div>
-          </div>
+            {/* Cart route */}
+            <Route path="/cart" element={<Cart products={products} />} />
+          </Routes>
         </div>
-      ))}
-    </div>
+      </div>
+    </Router>
   );
 }
 

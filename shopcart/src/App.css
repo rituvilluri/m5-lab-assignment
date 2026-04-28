@@ -1,14 +1,110 @@
-/* App.css - beginner friendly styling to match your screenshot vibe */
-
 .page {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
+/* Store-style list wrapper */
+.store-list {
+  width: 100%;
+}
+
+/* Each product is one horizontal row */
+.store-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 60px;
+  border-top: 2px solid #e6ebf2;
+}
+
+/* Left side holds title and image */
+.store-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.store-left h2 {
+  margin: 0 0 18px 0;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Right side stays aligned to the far right */
+.store-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 260px;
+}
+
+/* Keep quantity controls on one line */
+.qty-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+/* Cart page wrapper */
+.cart-page {
+  padding: 30px 60px;
+}
+
+/* Cart page title */
+.cart-page h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* Each item row */
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 0;
+  border-top: 2px solid #e6ebf2;
+}
+
+/* Left side of cart item */
+.cart-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Cart item image */
+.cart-img {
+  width: 100px;
+  height: auto;
+}
+
+/* Cart product text */
+.cart-info h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.cart-info p {
+  margin: 4px 0;
+}
+
+/* Right side quantity */
+.cart-right {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Optional: make the quantity label a little cleaner */
+.qty-area span {
+  margin-left: 4px;
+}
+
 /* Header bar */
 .topbar {
-  background: #25d0ea;          /* bright blue like the example */
+  background: #25d0ea;
   height: 110px;
   padding: 0 60px;
 
@@ -17,6 +113,14 @@
   justify-content: space-between;
 }
 
+/* Remove default link underline/color from router links */
+.title-link,
+.cart-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* App title in header */
 .title {
   font-size: 44px;
   font-weight: bold;
@@ -24,9 +128,11 @@
   text-align: left;
 }
 
+/* Cart text in header */
 .cart {
   font-size: 18px;
   color: #111;
+  font-weight: bold;
 }
 
 /* Each product row */
@@ -50,11 +156,12 @@
   gap: 80px;
 }
 
-/* Image size (smaller, left aligned) */
+/* Product image */
 .product-img {
   width: 140px;
   height: auto;
   display: block;
+  cursor: pointer; /* Needed because clicking image opens modal */
 }
 
 /* Quantity area */
@@ -65,7 +172,7 @@
   font-size: 18px;
 }
 
-/* Buttons */
+/* Quantity buttons */
 .qty-area button {
   width: 40px;
   height: 40px;
@@ -77,7 +184,7 @@
   border-radius: 6px;
 }
 
-/* Input box */
+/* Quantity display box */
 .qty-area input {
   width: 60px;
   height: 40px;
@@ -86,4 +193,77 @@
 
   border: 2px solid #d6dbe3;
   border-radius: 6px;
+  background: white;
+}
+
+/* Modal background overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal box */
+.modal-box {
+  background: white;
+  width: 380px;
+  max-width: 90%;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+/* Close button in modal */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  border: none;
+  background: #f3f5f8;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* Modal image */
+.modal-img {
+  width: 220px;
+  height: auto;
+  margin: 15px 0;
+}
+
+/* Cart page container */
+.cart-page {
+  padding: 30px 60px;
+}
+
+/* Cart page title */
+.cart-page h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* Each row in the cart page */
+.cart-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 2px solid #e6ebf2;
+}
+
+/* Cart item image */
+.cart-img {
+  width: 100px;
+  height: auto;
 }
