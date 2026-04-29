@@ -9,6 +9,25 @@
   width: 100%;
 }
 
+.sort-area {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 24px 0 8px;
+}
+
+.sort-area label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sort-area select {
+  border: 1px solid #b8c0cc;
+  border-radius: 2px;
+  padding: 3px 6px;
+}
+
 /* Each product is one horizontal row */
 .store-row {
   display: flex;
@@ -30,6 +49,12 @@
   font-size: 28px;
   font-weight: bold;
   text-align: left;
+}
+
+.product-price {
+  color: #e54569;
+  font-size: 16px;
+  margin-left: 6px;
 }
 
 /* Right side stays aligned to the far right */

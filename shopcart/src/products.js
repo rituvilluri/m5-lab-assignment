@@ -36,6 +36,7 @@ function parseProducts(text) {
         id: items.length + 1,
         image: "",
         desc: "",
+        price: 0,
         value: 0,
         qty: 0,
         ratings: "",
@@ -52,6 +53,11 @@ function parseProducts(text) {
     // Read description
     if (line.startsWith("desc:")) {
       currentProduct.desc = line.split(":")[1].trim().replace(/'/g, "");
+    }
+
+    // Read price
+    if (line.startsWith("price:")) {
+      currentProduct.price = Number(line.split(":")[1].trim());
     }
 
     // Read value

@@ -9,6 +9,9 @@ function DisplayProducts({ products, handleAdd, handleSubtract }) {
   // Store the currently selected product for the modal
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // Store the selected price sort option
+  const [sortPrice, setSortPrice] = useState("normal");
+
   // Open the modal with the clicked product
   function openModal(product) {
     setSelectedProduct(product);
@@ -21,13 +24,41 @@ function DisplayProducts({ products, handleAdd, handleSubtract }) {
     setSelectedProduct(null);
   }
 
+  function getSortedProducts() {
+    switch (sortPrice) {
+      case "lowest":
+        return [...products].sort((a, b) => a.price - b.price);
+      case "highest":
+        return [...products].sort((a, b) => b.price - a.price);
+      default:
+        return [...products].sort((a, b) => a.id - b.id);
+    }
+  }
+
+  const sortedProducts = getSortedProducts();
+
   return (
     <div className="store-list">
-      {products.map((product) => (
+      <div className="sort-area">
+        <label htmlFor="sort-price">Sort Price By:</label>
+        <select
+          id="sort-price"
+          value={sortPrice}
+          onChange={(event) => setSortPrice(event.target.value)}
+        >
+          <option value="normal">Normal</option>
+          <option value="lowest">Lowest</option>
+          <option value="highest">Highest</option>
+        </select>
+      </div>
+
+      {sortedProducts.map((product) => (
         <div key={product.id} className="store-row">
           {/* Left side: title and image */}
           <div className="store-left">
-            <h2>{product.desc}</h2>
+            <h2>
+              {product.desc} <span className="product-price">${product.price}</span>
+            </h2>
 
             <img
               src={product.image}
