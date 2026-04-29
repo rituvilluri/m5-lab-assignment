@@ -11,6 +11,8 @@ import { loadProducts } from "./products";
 import NavigationBar from "./navbar";
 import Home from "./home";
 import Cart from "./cart";
+import Signin from "./signin";
+import Checkout from "./checkout";
 
 function App() {
   // Store all products in state
@@ -73,6 +75,8 @@ function App() {
 
             {/* Cart route */}
             <Route path="/cart" element={<Cart products={products} />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </div>
       </div>

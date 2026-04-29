@@ -81,6 +81,97 @@
   height: auto;
 }
 
+.action-btn {
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 14px;
+}
+
+.checkout-btn {
+  background: #2468f2;
+  margin-top: 16px;
+}
+
+.continue-btn,
+.login-btn {
+  background: #2f8f73;
+}
+
+.auth-panel {
+  border: 1px solid #e6ebf2;
+  margin: 30px auto;
+  max-width: 720px;
+}
+
+.auth-panel h1 {
+  background: #f7f7f7;
+  border-bottom: 1px solid #e6ebf2;
+  font-size: 26px;
+  margin: 0;
+  padding: 18px;
+}
+
+.panel-body {
+  padding: 18px;
+}
+
+.signin-copy {
+  font-weight: bold;
+}
+
+.signin-form {
+  border: 1px solid #e6ebf2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 28px;
+  max-width: 190px;
+  padding: 14px;
+}
+
+.signin-form label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.signin-form input {
+  border: 1px solid #cfd6df;
+  height: 28px;
+  padding: 4px 8px;
+}
+
+.facebook-btn {
+  align-items: center;
+  background: #3b5998;
+  border: 0;
+  border-radius: 0;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: bold;
+  gap: 8px;
+  padding: 12px 18px;
+  text-transform: uppercase;
+}
+
+.welcome-message {
+  align-items: center;
+  color: #5ca06c;
+  display: flex;
+  font-size: 18px;
+  font-weight: bold;
+  gap: 12px;
+}
+
+.welcome-message svg {
+  color: black;
+  font-size: 32px;
+}
+
 /* Cart product text */
 .cart-info h3 {
   margin: 0;
